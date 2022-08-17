@@ -1,0 +1,4 @@
+Essa situação definitivamente seria possível de acontecer. Uma sugestão para evitar que este problema ocorra
+é adicionar uma fila de threads para essas duas tarefas, onde elas serão executadas na ordem que forem chamadas.
+Logo, se depositar() for chamada e então, durante sua execução, atualizar() também for, atualizar() só irá iniciar
+depois que depositar() finalizar.
