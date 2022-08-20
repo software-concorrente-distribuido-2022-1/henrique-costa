@@ -33,8 +33,8 @@ if not interval:
 while True:
     time.sleep(interval)
     if roleInput == 'p':
-        client.send_message('colocar')
-        print('Colocado')
+        qty = client.send_message('colocar')
+        print('Colocado; Qtd. atual: ' + qty)
     elif roleInput == 'c':
-        client.send_message('retirar')
-        print('Retirado')
+        qty = client.send_message('retirar')
+        print('Retirado; Qtd. atual: ' + qty)

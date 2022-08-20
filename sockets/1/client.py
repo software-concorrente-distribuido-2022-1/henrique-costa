@@ -8,7 +8,7 @@ client = Client(5000, 1024)
 role = None
 salary = None
 
-roleInput = input('Cargo (o/operador ou p/programador): ')
+roleInput = input('Cargo (o/operador ou p/programador): ').lower()
 if roleInput == 'p' or roleInput == 'programador':
     role = 'p'
 elif roleInput == 'o' or roleInput == 'operador':

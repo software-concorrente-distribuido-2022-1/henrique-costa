@@ -39,7 +39,7 @@ class Deposito:
                 print('[ARMAZENADA] Caixa armazenada: Passaram a ser '+str(self.itens)+' caixas');
                 self.podeRetirar = True
 
-            if (self.itens == 0):
+            if (self.itens == self.capacidade):
                 self.podeColocar = False
 
             print('[FINAL] Produtor terminou de colocar. podeRetirar = '+str(self.podeRetirar)+'; podeColocar = '+str(self.podeColocar)+'\n')

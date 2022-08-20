@@ -8,7 +8,7 @@ class Server:
         self.messageMaxSize = messageMaxSize
     
     def start_server(self, callback):
-        host = socket.gethostname() # obter o host, como ambos os códigos estão sendo executados localmente
+        host = '0.0.0.0' # host em 0.0.0.0 para abrir remotamente
 
         server_socket = socket.socket()  # obter socket
         server_socket.bind((host, self.port))  # ligar host e a porta

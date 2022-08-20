@@ -27,6 +27,8 @@ class Deposito:
             print('[FINAL] Consumidor terminou de retirar. podeRetirar = '+str(self.podeRetirar)+'; podeColocar = '+str(self.podeColocar)+'\n')
 
             self.monitor.notify()
+
+            return str(self.itens)
             
     def colocar(self):
         with self.monitor: #equivalente a "syncronized"
@@ -46,6 +48,8 @@ class Deposito:
             print('[FINAL] Produtor terminou de colocar. podeRetirar = '+str(self.podeRetirar)+'; podeColocar = '+str(self.podeColocar)+'\n')
 
             self.monitor.notify()
+
+            return str(self.itens)
 
 class Server:
 
@@ -79,11 +83,11 @@ class Server:
                 # parar se não receber dados / a conexão for encerrada pelo cliente
                 break
             if data == 'colocar':
-                self.dep.colocar()
+                qtd = self.dep.colocar()
             elif data == 'retirar':
-                self.dep.retirar()
+                qtd = self.dep.retirar()
 
-            connection.send(('ok').encode()) # retornar resposta
+            connection.send(qtd.encode()) # retornar resposta
 
         connection.close()  # encerrar a conexão
         print('Conexão com '+str(address)+' encerrada')
