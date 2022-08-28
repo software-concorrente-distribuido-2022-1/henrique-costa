@@ -1,10 +1,10 @@
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+import sys
 import time
-from base_client import Client
 
-client = Client(5000, 1024)
+import Pyro4
+
+deposito = Pyro4.Proxy('PYRONAME:scp.deposito')
+
 role = None
 interval = None
 
@@ -14,7 +14,6 @@ if roleInput == 'p' or roleInput == 'produtor':
 elif roleInput == 'c' or roleInput == 'consumidor':
     role = 'c'
 else:
-    client.close_connection()
     print('Tipo inválido')
     sys.exit()
 
@@ -33,8 +32,8 @@ if not interval:
 while True:
     time.sleep(interval)
     if roleInput == 'p':
-        qty = client.send_message('colocar')
+        qty = deposito.colocar()
         print('Colocado; Qtd. atual no depósito: ' + qty)
     elif roleInput == 'c':
-        qty = client.send_message('retirar')
+        qty = deposito.retirar()
         print('Retirado; Qtd. atual no depósito: ' + qty)

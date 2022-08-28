@@ -1,10 +1,7 @@
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+import sys
 import time
-from base_client import Client
+import xmlrpc.client
 
-client = Client(5000, 1024)
 role = None
 interval = None
 
@@ -14,7 +11,6 @@ if roleInput == 'p' or roleInput == 'produtor':
 elif roleInput == 'c' or roleInput == 'consumidor':
     role = 'c'
 else:
-    client.close_connection()
     print('Tipo inválido')
     sys.exit()
 
@@ -30,11 +26,15 @@ except ValueError:
 if not interval:
     interval = 2
 
+host = '127.0.0.1'
+port = 4000
+proxy = xmlrpc.client.ServerProxy(f'http://{host}:{port}')
+
 while True:
     time.sleep(interval)
     if roleInput == 'p':
-        qty = client.send_message('colocar')
+        qty = proxy.colocar()
         print('Colocado; Qtd. atual no depósito: ' + qty)
     elif roleInput == 'c':
-        qty = client.send_message('retirar')
+        qty = proxy.retirar()
         print('Retirado; Qtd. atual no depósito: ' + qty)
